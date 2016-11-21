@@ -12,6 +12,7 @@ public class Phone {
     String nickname;
     String remark;
     Date time;
+    Boolean is_success;
 
     public Integer getId() {
         return id;
@@ -59,5 +60,13 @@ public class Phone {
 
     public void setTime(Date time) {
         this.time = time;
+    }
+
+    public Boolean getIs_success() {
+        return is_success;
+    }
+
+    public void setIs_success(Boolean is_success) {
+        this.is_success = is_success;
     }
 }

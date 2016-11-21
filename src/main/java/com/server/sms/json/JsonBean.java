@@ -5,16 +5,16 @@ import com.server.sms.util.ErrorCodeUtil;
 /**
  * Created by Administrator on 2016/10/21.
  */
-public class JsonBean {
+public class JsonBean<T> {
     int error_code;
     boolean success;
     String msg;
-    Object data;
+    T data;
 
     public JsonBean() {
     }
 
-    public JsonBean(int error_code, Object data) {
+    public JsonBean(int error_code, T data) {
         this.error_code = error_code;
         if(error_code == ErrorCodeUtil.SUCCESS)
             this.success = true;
@@ -41,10 +41,10 @@ public class JsonBean {
     public void setError_code(int error_code) {
         this.error_code = error_code;
     }
-    public Object getData() {
+    public T getData() {
         return data;
     }
-    public void setData(Object data) {
+    public void setData(T data) {
         this.data = data;
     }
     public boolean isSuccess() {

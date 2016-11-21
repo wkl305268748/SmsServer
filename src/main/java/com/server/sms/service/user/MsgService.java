@@ -50,4 +50,16 @@ public class MsgService {
 
         return true;
     }
+
+    public boolean smsEdit(String token,String imei,Integer id,String body){
+
+        Map<String,String> map = new HashMap<>();
+        map.put("type","3");
+        map.put("id",id+"");
+        map.put("body",body);
+        JpushUtil jpushUtil = new JpushUtil();
+        jpushUtil.pushMap(imei,map);
+
+        return true;
+    }
 }

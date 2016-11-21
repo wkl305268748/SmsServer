@@ -1,16 +1,17 @@
 package com.server.sms.model.user;
 
+import java.util.Date;
+
 /**
  * Created by Administrator on 2016/11/6 0006.
  */
 public class Msg {
     private int id;
-    private int user_id;
     private int msg_id;
     private String imei;
     private String address;
     private String body;
-    private long date;
+    private Date date;
 
     public int getId() {
         return id;
@@ -18,14 +19,6 @@ public class Msg {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
     }
 
     public int getMsg_id() {
@@ -60,11 +53,11 @@ public class Msg {
         this.body = body;
     }
 
-    public long getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(long date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 }

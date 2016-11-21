@@ -55,27 +55,6 @@ public class UserPhoneController {
         return bean;
     }
 
-    @ApiOperation(value = "删除指定手机信息")
-    @RequestMapping(value = "/phone", method = RequestMethod.DELETE)
-    @ResponseBody
-    public JsonBean phonesDelete(@RequestParam(required = true) String token,
-                                 @RequestParam(required = true) String imei) {
-        JsonBean bean;
-        bean = new JsonBean(ErrorCodeUtil.SUCCESS);
-        return bean;
-    }
-
-    @ApiOperation(value = "获取指定手机所有短信")
-    @RequestMapping(value = "/sms/imei", method = RequestMethod.GET)
-    @ResponseBody
-    public JsonBean smsGetAll(@RequestParam(required = true) String token,
-                              @RequestParam(required = true) String imei) {
-        JsonBean bean;
-        msgService.smsAll(token,imei);
-        bean = new JsonBean(ErrorCodeUtil.SUCCESS);
-        return bean;
-    }
-
     @ApiOperation(value = "获取指定手机指定手机号短信")
     @RequestMapping(value = "/sms/imei/phone", method = RequestMethod.GET)
     @ResponseBody
@@ -83,7 +62,10 @@ public class UserPhoneController {
                            @RequestParam(required = true) String phone,
                            @RequestParam(required = true) String imei) {
         JsonBean bean;
+        //清空短信
+        //发送指令
         msgService.smsGet(token,imei,phone);
+
         bean = new JsonBean(ErrorCodeUtil.SUCCESS);
         return bean;
     }
@@ -114,37 +96,15 @@ public class UserPhoneController {
     @RequestMapping(value = "/sms/imei/msgid", method = RequestMethod.PUT)
     @ResponseBody
     public JsonBean smsPut(@RequestParam(required = true) String token,
-                           @RequestParam(required = true) String address,
+                           @RequestParam(required = true) Integer id,
                            @RequestParam(required = true) String body,
-                           @RequestParam(required = true) long date,
-                           @RequestParam(required = true) String msgid,
                            @RequestParam(required = true) String imei) {
         JsonBean bean;
-        bean = new JsonBean(ErrorCodeUtil.SUCCESS);
-        return bean;
-    }
 
-    @ApiOperation(value = "删除指定短信")
-    @RequestMapping(value = "/sms/imei/msgid", method = RequestMethod.DELETE)
-    @ResponseBody
-    public JsonBean smsDELETE(@RequestParam(required = true) String token,
-                              @RequestParam(required = true) String phone,
-                              @RequestParam(required = true) String msgid,
-                              @RequestParam(required = true) String imei) {
-        JsonBean bean;
-        bean = new JsonBean(ErrorCodeUtil.SUCCESS);
-        return bean;
-    }
 
-    @ApiOperation(value = "新增短信")
-    @RequestMapping(value = "/sms/imei", method = RequestMethod.POST)
-    @ResponseBody
-    public JsonBean smsPOST(@RequestParam(required = true) String token,
-                            @RequestParam(required = true) String address,
-                            @RequestParam(required = true) String body,
-                            @RequestParam(required = true) long date,
-                            @RequestParam(required = true) String imei) {
-        JsonBean bean;
+        //发送修改指令
+        msgService.smsEdit(token,imei,id,body);
+
         bean = new JsonBean(ErrorCodeUtil.SUCCESS);
         return bean;
     }
